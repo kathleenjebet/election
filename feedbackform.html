@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: pink;
+            color: white;
+            background-size: cover;
+        }
+        fieldset {
+            border: 1px solid white;
+            display: inline-block;
+            padding: 20px;
+            text-align: left;
+        }
+        legend {
+            text-align: center;
+        }
+        input[type="submit"] {
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+    <script>
+        function validateForm() {
+            let id = document.forms["feedbackForm"]["ID"].value;
+            let name = document.forms["feedbackForm"]["NAME"].value;
+            let email = document.forms["feedbackForm"]["EMAIL"].value;
+            let feedback = document.forms["feedbackForm"]["FEEDBACK"].value;
+            let rating = document.forms["feedbackForm"]["RATING"].value;
+            let subdate = document.forms["feedbackForm"]["SUBDATE"].value;
+
+            if (id == "" || name == "" || email == "" || feedback == "" || rating == "" || subdate == "") {
+                alert("All fields must be filled out");
+                return false;
+            }
+
+            // Check email format
+            let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email address");
+                return false;
+            }
+
+            // Check if rating is between 1 and 10
+            if (isNaN(rating) || rating < 1 || rating > 10) {
+                alert("Please enter a rating between 1 and 10");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+<form name="feedbackForm" method="post" action="submitfeedback.php" onsubmit="return validateForm()">
+    <fieldset>
+        <legend>REGISTRATION</legend>
+        <p><b>ENTER ID</b>: 
+            <input type="text" size="15" name="ID">
+        </p>
+        <p><b>ENTER NAME</b>: 
+            <input type="text" size="15" name="NAME">
+        </p>
+        <p><b>ENTER EMAIL</b>: 
+            <input type="text" size="25" name="EMAIL">
+        </p>
+        <p><b>FEEDBACK</b>: 
+            <input type="text" size="30" name="FEEDBACK">
+        </p>
+        <p><b>YOUR RATING</b>: 
+            <input type="number" size="15" name="RATING">
+        </p>
+        <p><b>SELECT DATE OF SUBMISSION</b>: 
+            <input type="date" name="SUBDATE">
+        </p>
+        <p>
+            <input type="submit" value="SUBMIT" />
+        </p>
+    </fieldset>
+</form>
+</body>
+</html>
